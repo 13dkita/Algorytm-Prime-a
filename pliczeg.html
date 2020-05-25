@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title> Grafiaki </title>
+  <style>
+
+  body {
+  font-size: x-large;
+  padding-top: 60px;
+  padding-left: 100px;
+  color: black;
+  }
+
+.button {
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.button1 {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #4CAF50;
+}
+
+.button1:hover {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.button2 {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #008CBA;
+}
+
+.button2:hover {
+  background-color: #008CBA;
+  color: white;
+}
+
+}
+
+</style>
+<meta charset="utf-8">
+</head>
+<body background = "backe.png">
+<form action="grafyyy.php" method="post">
+  </br>
+   <label> 1. Podaj ilość wierzchołków badanej macierzy: <br> </label> <input type="text" id="ilew" name="ilew"> <br>
+   <div id="matrix">2. Podaj macierz:
+   <div id="main">
+     <textarea name="matrix" rows="25" cols="70"></textarea>
+   </div>
+   </div>
+
+   <br></br>
+   <input class = "button button2" type="submit" value="WYŚLIJ" />
+ </form>
+</body>
