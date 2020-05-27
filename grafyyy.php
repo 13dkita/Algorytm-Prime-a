@@ -9,10 +9,24 @@
   color: black;
   }
 
+  #container {
+   width: 50%;
+   height: 300px;
+   margin-top: 20px;
+   float: left;
+ }
+
+ #output {
+   width:20%;
+   float:left;
+ }
+
 </style>
+
+
 <?php
 
-   function multiexplode ($delimiters,$string) 
+   function multiexplode ($delimiters,$string)
     {
 	$ready = str_replace($delimiters, $delimiters[0], $string);
 	$launch = explode($delimiters[0], $ready);
@@ -44,7 +58,25 @@
             echo($parent[$i]." - ".$i."\t".$graph[$i][$parent[$i]]);
             echo("<br>");
         }
-            
+
+    }
+
+    function getWeights($parent, $graph, $V)
+    {
+      $weights[0] = -1;
+      for ($i=1; $i < $V; $i++) {
+        $weights[$i] = (int)$graph[$i][$parent[$i]];
+      }
+      return $weights;
+    }
+
+    function writeArray($arr)
+    {
+      for ($i=0; $i < sizeof($arr); $i++) {
+        echo $arr[$i];
+        echo("\t");
+      }
+      echo "<br>";
     }
 
     function primMST($graph, $V)
@@ -75,8 +107,9 @@
                 }
         }
 
-       
+
         printMST($parent, $graph, $V);
+        return $parent;
     }
         $graf= array(
         array(0,5,6,4,0,0),
@@ -89,7 +122,8 @@
 
   $x = $_POST['matrix'];
   $podz = multiexplode(array(","," ","\n","  "),$x);
-  $st = sqrt(sizeof($podz));    
+  $st = sqrt(sizeof($podz));
+  echo "<div id='output'>";
   echo "liczba wierzchołków oraz rozmiar macierzy to: ";
   echo($st);
   echo("<br>");
@@ -107,20 +141,91 @@
 	$dodawator3000 = $dodawator3000 + $st;
   }
 
-  echo "macierz:";  
+  echo "macierz:";
   echo("<br>");
   for ($z = 0; $z < $st; $z++)
   {
 	   for ($q = 0; $q < $st; $q++)
 	     {
-		      echo($skunowatygraf420[$z][$q]); 
+		      echo($skunowatygraf420[$z][$q]);
 			echo "\n";
 	     }
    echo("<br>");
   }
   echo("<br>");
-   primMST($skunowatygraf420,$_POST['ilew']);
+  $parent =  primMST($skunowatygraf420,$_POST['ilew']);
+  echo "</div>";
+  $weights = getWeights($parent, $skunowatygraf420, $_POST['ilew']);
+  $V = $_POST['ilew'];
+
 
 ?>
+
+<div id="container"></div>
+<script src="./build/sigma.min.js"></script>
+<script src="./build/plugins/sigma.parsers.json.min.js"></script>
+<script src="./build/plugins/sigma.renderers.edgeLabels.min.js"></script>
+<script src="./build/plugins/sigma.layout.forceAtlas2.min.js"></script>
+<script>
+
+var s = new sigma(
+  {
+    renderer: {
+      container: document.getElementById('container'),
+      type: 'canvas'
+    },
+    settings: {
+      defaultNodeColor: '#ec5148',
+      drawLabels: true
+    }
+  }
+  );
+
+
+
+function randomInt(min, max) {
+	return min + Math.floor((max - min) * Math.random());
+}
+
+function addNodesFromArray(arr){
+  for (let index = 0; index < arr.length; index++) {
+    var newNode = {id: "n"+index, label: "" + index, x: randomInt(0, arr.length), y: randomInt(0, arr.length), size: 3}
+    s.graph.addNode(newNode)
+  }
+}
+
+function addConnections(arr, weight){
+  for (let index = 1; index < arr.length; index++) {
+    var newConnection = {id: "e"+index, label: ""+weight[index], source: "n"+index, target: "n"+arr[index]}
+    s.graph.addEdge(newConnection)
+  }
+}
+
+var tmpParent = <?php echo json_encode($parent); ?>;
+var tmpWeight = <?php echo json_encode($weights); ?>;
+var howManyNodes = <?php echo $V ?>;
+
+var arr = [];
+var weight = [];
+
+for (let index = 0; index < howManyNodes; index++) {
+  arr.push(tmpParent[index]);
+}
+
+for (let index = 0; index < howManyNodes; index++) {
+  weight.push(tmpWeight[index])
+}
+console.log(arr);
+console.log(tmpWeight);
+
+addNodesFromArray(arr);
+addConnections(arr,weight);
+s.startForceAtlas2();
+s.refresh();
+setTimeout(function () {
+s.stopForceAtlas2()
+}, 100);
+</script>
+
 </body>
 </html>
