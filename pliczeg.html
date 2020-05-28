@@ -50,14 +50,58 @@
 
 </style>
 <meta charset="utf-8">
+
+<script type="text/javascript">
+  function myFunction()
+  {
+     rege();
+     comma();
+     space();
+     white();
+
+  }
+
+  function rege()
+  {
+      v = document.getElementById('macierz');
+      x=document.getElementById('ilew');
+      return v.value= v.value.replace(/[A-Za-z.!@#$%^&*()-+=;:/?<>]/g, '');
+      //return this.value = this.value.replace(/[A-Za-z.!@#$%^&*()-+=;:/?<>]/g, '');
+  }
+  function comma()
+  {
+      v = document.getElementById('macierz');
+      return v.value = v.value.replace(',,',',');
+      //return this.value = this.value.replace(',,', ',');
+  }
+  function space()
+  {
+      v = document.getElementById('macierz');
+      return v.value = v.value.replace('  ',' ');
+  }
+  function white()
+  {
+     v = document.getElementById('macierz');
+     return v.value = v.value.replace(/^\s+|\s+$/,'');
+  }
+  function IleW()
+  {
+    v = document.getElementById('ile');
+    return v.value = v.value.replace(/[^0-9]/,'');
+  }
+
+
+
+</script>
+
 </head>
 <body background = "backe.png">
 <form action="grafyyy.php" method="post">
   </br>
-   <label> 1. Podaj ilość wierzchołków badanej macierzy: <br> </label> <input type="text" id="ilew" name="ilew"> <br>
+   <label> 1. Podaj ilość wierzchołków badanej macierzy: <br> </label> <input type="text" id="ile" name="ilew" onkeyup="IleW()"> <br>
    <div id="matrix">2. Podaj macierz:
    <div id="main">
-     <textarea name="matrix" rows="25" cols="70"></textarea>
+     <textarea name="matrix" id="macierz" rows="25" cols="70" onkeyup="myFunction()"></textarea>
    </div>
    </div>
 
