@@ -82,7 +82,7 @@
   function white()
   {
      v = document.getElementById('macierz');
-     return v.value = v.value.replace(/^\s+|\s+$/,'');
+       return v.value = v.value.replace(/[^\S\r\n]+/,'');
   }
   function IleW()
   {
