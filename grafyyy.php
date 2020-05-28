@@ -152,6 +152,21 @@
 	     }
    echo("<br>");
   }
+
+
+  for ($z = 0; $z < $st; $z++)
+  {
+	 for ($q = 0; $q < $st; $q++)
+	 {
+		if((float)$skunowatygraf420[$z][$q]!=(float)$skunowatygraf420[$q][$z])
+	   	{
+			exit("Twoja macierz nie jest macierzą sąsiedztwa grafu nieskierowanego spójnego");
+		}
+
+	 }
+  }
+
+
   echo("<br>");
   $parent =  primMST($skunowatygraf420,$_POST['ilew']);
   echo "</div>";
