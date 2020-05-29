@@ -51,11 +51,11 @@
 
     function printMST($parent, $graph, $V)
     {
-        echo("Edge \tWeight");
+        echo("Krawędzi \t Wagi");
         echo("<br>");
         for ($i = 1; $i < $V; $i++)
         {
-            echo($parent[$i]." - ".$i."\t".$graph[$i][$parent[$i]]);
+            echo($parent[$i]." - ".$i." ".$graph[$i][$parent[$i]]);
             echo("<br>");
         }
 
@@ -120,16 +120,49 @@
         array(0,0,3,4,4,0)
     );
 
+  //pobieranie macierzy 
   $x = $_POST['matrix'];
+
+  //zabezpieczenia 
+  //przed wprowadzeniem przecinka na poczatku macierzy
+  
+  if($x[strlen($x)-1]==',')
+	{exit("źle podana macierz - na końcu macierzy musi być liczba nie przecinek");}
+
+  //przed wprowadzeniem przecinka na koncu macierzy
+  if($x[0]==',')
+	{exit("źle podana macierz - na początku macierzy musi być liczba nie przecinek");} 
+
+  //przed wprowadzeniem przecinka po enterze i entera po przecinku( przecinek nie może
+  //stać na końcu ani na początku wiersza.
+  for($it = 0; $it < strlen($x) - 1;$it++)
+  {
+	if(ord($x[$it])==44 && ord($x[$it+1])==13)
+	{exit("źle podana macierz - przecinek na końcu wiersza musi zostać usunięty");}
+
+	if(ord($x[$it])==10 && ord($x[$it+1])==44)
+	{exit("źle podana macierz - przecinek na początku wiersza musi zostać usunięty");}
+
+  }
+
+
+
+  //funkcja dzieli stringa tak aby zostały same cyferki 
   $podz = multiexplode(array(","," ","\n","  "),$x);
+  
+  //pierwiastkuje ilość wyrazów w macierzy i dostaje jej szerkoość i długość
   $st = sqrt(sizeof($podz));
   echo "<div id='output'>";
   echo "liczba wierzchołków oraz rozmiar macierzy to: ";
   echo($st);
   echo("<br>");
+
   $skunowatygraf420= array();
   $dodawator3000 = 0;
+
   echo("<br>");
+
+  //dodawanie wyrazów do macierzy 
   for ($x = 0; $x < $st; $x++)
   {
         $myArray = array();
@@ -143,6 +176,8 @@
 
   echo "macierz:";
   echo("<br>");
+
+  //wypisywanie macierzy (można usunąć)
   for ($z = 0; $z < $st; $z++)
   {
 	   for ($q = 0; $q < $st; $q++)
@@ -150,10 +185,10 @@
 		      echo($skunowatygraf420[$z][$q]);
 			echo "\n";
 	     }
-   echo("<br>");
+          echo("<br>");
   }
 
-
+  // zabezpieczenie przed wprowadzeniem macierzy ze złymi liczbami
   for ($z = 0; $z < $st; $z++)
   {
 	 for ($q = 0; $q < $st; $q++)
