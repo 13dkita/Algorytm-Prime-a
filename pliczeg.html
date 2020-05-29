@@ -54,25 +54,28 @@
 <script type="text/javascript">
   function myFunction()
   {
+  
      rege();
      comma();
      space();
      white();
-
+     nawias();
+   
   }
+  //przecinek po spacji itp, spacja/przecinek na koncu lini
 
   function rege()
   {
       v = document.getElementById('macierz');
       x=document.getElementById('ilew');
       return v.value= v.value.replace(/[A-Za-z.!@#$%^&*()-+=;:/?<>]/g, '');
-      
+    
   }
   function comma()
   {
       v = document.getElementById('macierz');
       return v.value = v.value.replace(',,',',');
-     
+   
   }
   function space()
   {
@@ -82,13 +85,22 @@
   function white()
   {
      v = document.getElementById('macierz');
-       return v.value = v.value.replace(/[^\S\r\n]+/,'');
+     return v.value = v.value.replace(/[^\S\r\n]+/,'');
   }
   function IleW()
   {
     v = document.getElementById('ile');
     return v.value = v.value.replace(/[^0-9]/,'');
   }
+  function nawias()
+  {
+    v = document.getElementById('macierz');
+    return v.value = v.value.replace(/[\[\]']+/,'');
+
+  }
+
+
+
 
 
 
@@ -106,6 +118,6 @@
    </div>
 
    <br></br>
-   <input class = "button button2" type="submit" value="WYŚLIJ" />
+   <input class = "button button2" type="submit" value="WYŚLIJ"/>
  </form>
 </body>
