@@ -52,9 +52,14 @@
 <meta charset="utf-8">
 
 <script type="text/javascript">
+
+  function test()
+  {
+    aler(document.getElementById('macierz').val())
+  }
   function myFunction()
   {
-  
+   
      rege();
      comma();
      space();
@@ -108,16 +113,24 @@
 
 </head>
 <body background = "backe.png">
+  <div class="obraz">
+    <img src="Graf.png" width="300" height="200"  style="padding-top:20px;"> 
+    <img src="macierz.png"  width="300" height="200"  style="padding-top:20px;">
+    <img src="aplikacja.png"  width="500" height="200" style="padding-top:20px;">
+  </div>
 <form action="grafyyy.php" method="post">
-  </br>
+<div style="padding-left:400px">
+  <br>
    <label> 1. Podaj ilość wierzchołków badanej macierzy: <br> </label> <input type="text" id="ile" name="ilew" onkeyup="IleW()"> <br>
    <div id="matrix">2. Podaj macierz:
    <div id="main">
-     <textarea name="matrix" id="macierz" rows="25" cols="70" onkeyup="myFunction()"></textarea>
+     <textarea name="matrix" id="macierz" rows="25" cols="70" onkeyup="myFunction()" ></textarea>
    </div>
    </div>
-
-   <br></br>
-   <input class = "button button2" type="submit" value="WYŚLIJ"/>
+</div>
+   <br><br>
+   <div style="padding-left:600px">
+   <input class = "button button2" type="submit" value="WYŚLIJ" onclick="test()" />
+   </div>
  </form>
 </body>
